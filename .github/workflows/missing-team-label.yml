@@ -7,8 +7,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions-ecosystem/action-create-comment@v1
-        if: "${{ contains( github.event.issue.labels, 'team:') != true }}"
+        if: "${{ contains( join(github.event.issue.labels.*.name, ', '), 'team:') != true }}"
         with:
           github_token: ${{ secrets.github_token }}
           body: |
-            Hello, @${{ github.actor }}, please add a team label to this issue! (labels: ${{ github.event.issue.labels }})
+            Hello, @${{ github.actor }}, please add a team label to this issue! (labels: ${{ join(github.event.issue.labels.*.name, ', ') }})
