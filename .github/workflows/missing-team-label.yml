@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions-ecosystem/action-create-comment@v1
-        if: ${{ startsWith( github.event.issue.labels.*.name, 'team:') != true }}
+        if: "${{ contains( github.event.issue.labels, 'team:') != true }}"
         with:
           github_token: ${{ secrets.github_token }}
           body: |
