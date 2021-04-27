@@ -1,13 +1,13 @@
 name: missing-team-label
 on:
   issues:
-    types: [opened, labeled, unlabeled]
+    types: [opened, unlabeled]
 jobs:
   create_comment:
     runs-on: ubuntu-latest
     steps:
       - uses: actions-ecosystem/action-create-comment@v1
-        if: ${{ !startsWith( github.event.issue.labels.*.name, 'team:') }}
+        if: ${{ startsWith( github.event.issue.labels.*.name, 'team:') != true }}
         with:
           github_token: ${{ secrets.github_token }}
           body: |
