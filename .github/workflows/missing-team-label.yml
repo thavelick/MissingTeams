@@ -1,0 +1,14 @@
+name: missing-team-label
+on:
+  issues:
+    types: [opened, labeled, unlabeled]
+jobs:
+  create_comment:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions-ecosystem/action-create-comment@v1
+        if: ${{ !startsWith( github.event.pull_request.labels.*.name, 'team:') }}
+        with:
+          github_token: ${{ secrets.github_token }}
+          body: |
+            Hello, @${{ github.actor }}, please add a team label to this issue!
